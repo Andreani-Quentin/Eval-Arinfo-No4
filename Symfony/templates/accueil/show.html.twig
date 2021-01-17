@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <h1>Accueil</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ accueil.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ accueil.title }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ accueil.content }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ accueil.image }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('accueil_index') }}">back to list</a>
+
+    <a href="{{ path('accueil_edit', {'id': accueil.id}) }}">edit</a>
+
+    {{ include('accueil/_delete_form.html.twig') }}
+{% endblock %}

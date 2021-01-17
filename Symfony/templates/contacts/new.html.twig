@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Contacts{% endblock %}
+
+{% block body %}
+    <h1 class="my-5">Contact</h1>
+
+    {% if app.user %}
+
+    <h4 class="mb-5">Rebonjour {{app.user.firstname}} </h4>
+    {{ include('contacts/_form.html.twig') }}
+
+    {% endif %}
+    {% if not app.user %}
+    	<div class="mb-5 text-center">
+	    	<h4>Bonjour Invité</h4>
+	    	<p>Pour nous contacter veuillez-vous connecter ou vous inscrire :</p>
+	    	<a class="btn btn-primary" href="/register">S'inscrire</a>
+            <a class="btn btn-primary" href="/login">Connexion</a>
+    	</div>
+    {% endif %}
+	<a class="btn btn-primary" href="{{ path('home') }}">Retour</a>
+{% endblock %}

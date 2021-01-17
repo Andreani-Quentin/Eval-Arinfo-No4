@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Products index{% endblock %}
+
+{% block body %}
+    <h1 class="mb-5">Administration</h1>
+    <hr style="height: 1px; color: #839D2D; background-color: black; width: 50%; border: none;"/>
+    <section>
+
+        <h3 class="my-5">Accueil</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Titre du site</th>
+                    <th>Contenu de l'image d'accueil</th>
+                    <th>Image</th>
+                    <th>Nom de l'image</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for accueil in accueil %}
+                <tr>
+                    <td>{{ accueil.title }}</td>
+                    <td>{{ accueil.content }}</td>
+                    <td><img src="{{ asset('/uploads/' ~ accueil.image) }}" width="200"/></td>
+                    <td>{{ accueil.image }}</td>
+                    <td><a href="{{ path('accueil_edit', {'id': accueil.id}) }}">Editer</a></td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <h3 class="my-5">Les Produits</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Content</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.content }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.stock }}</td>
+                    <td>
+                        <a href="{{ path('products_show', {'id': product.id}) }}">Voir</a>
+                        <a href="{{ path('products_edit', {'id': product.id}) }}">Editer</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">Pas de produits enregistrer</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="text-right">
+            <a class="btn btn-primary" href="{{ path('products_new') }}">Ajouter un Produit</a>
+        </div>
+
+        <h3 class="my-5">Messages Clients</h3>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Message</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for contact in contacts %}
+                <tr>
+                    <td>{{ contact.id }}</td>
+                    <td>{{ contact.message }}</td>
+                    <td>{{ contact.user.lastname }}</td>
+                    <td>{{ contact.user.firstname }}</td>
+                    <td>{{ contact.user.email }}</td>
+                    <td>
+                        <a href="{{ path('contacts_show', {'id': contact.id}) }}">Voir</a>
+                        {{ include('contacts/_delete_form.html.twig') }}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Aucun Message</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <h3 class="my-5">Liste des utilisateurs</h3>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in user %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.lastname }}</td>
+                    <td>{{ user.firstname }}</td>
+                    <td>{{ user.email }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Il n'y a aucun utilisateur</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+{% endblock %}

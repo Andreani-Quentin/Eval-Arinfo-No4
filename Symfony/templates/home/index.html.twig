@@ -1,0 +1,63 @@
+ {% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+	{% for accueil in accueil %}
+
+	<h1 class="mb-5">{{ accueil.title }}</h1>
+
+	<header class="d-flex flex-column justify-content-center" style="background: linear-gradient(rgba(0,0,0,0.50), rgba(0,0,0,0.50)), url( {{ asset('/uploads/' ~ accueil.image) }}); background-size: cover; background-position: center;">
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6 text-center">
+				<h4 class="text-white">{{ accueil.content }}</h4>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+		<div class="row">
+			<div class="col-md-5"></div>
+			<div class="col-md-2">
+				<a href="#heureux"><div class='icon-scroll'></div></a>
+			</div>
+			<div class="col-md-5"></div>
+		</div>
+	</header>
+
+	{% endfor %}
+
+	<section class="mt-5" id="heureux">
+		<h3>Heureux de vous revoir {% if app.user %} {{app.user.firstname}} {% endif %} </h3>
+
+		<div class="row">
+			{% for product in products %}
+				<div class="col-md-6 mt-5">
+					<div class="portfolio_box" style="background: url({{ asset('uploads/' ~ product.images|first.name) }}); background-size: cover; background-position: center;">
+						<div class="overlay p-4">
+							<div class="titre_overlay text-center">
+								<h3 class="pb-3 mb-4">{{ product.name }}</h3>
+							</div>
+							<div class="overlay_content mt-4">
+								{% autoescape 'html' %}
+									{{ product.content|raw }}
+								{% endautoescape %}
+								<div class="overlay_price mt-4">
+									
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									Il reste {{ product.stock }} unité <br>
+									<div class="mt-3"> {{ product.price }} $</div>
+								</div>
+								<div class="col-md-6 text-center">
+									<a class="btn btn-secondary" href="#">Acheter</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</section>
+{% endblock %}
